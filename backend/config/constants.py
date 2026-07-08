@@ -1,0 +1,7 @@
+APP_VERSION = "0.1.0"
+
+SUPPORTED_CHANNELS = [
+    "WhatsApp"
+]
+
+DEFAULT_LANGUAGE = "en"
