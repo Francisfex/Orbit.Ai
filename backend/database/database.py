@@ -1,8 +1,18 @@
-import sqlite3
-from pathlib import Path
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-DB_PATH = Path("../../data/database/orbit.db")
+DATABASE_URL = "sqlite:///orbit.db"
 
-def get_connection():
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    return sqlite3.connect(DB_PATH)
+engine = create_engine(DATABASE_URL)
+
+SessionLocal = sessionmaker(bind=engine)
+
+def get_db():
+
+    db = SessionLocal()
+
+    try:
+        yield db
+
+    finally:
+        db.close()

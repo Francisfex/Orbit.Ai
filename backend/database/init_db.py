@@ -1,20 +1,6 @@
-from database import get_connection
+from database.database import engine
+from database.models import Base
 
-conn = get_connection()
-cursor = conn.cursor()
+Base.metadata.create_all(bind=engine)
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS vendors (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    business_name TEXT NOT NULL,
-    owner_name TEXT,
-    email TEXT UNIQUE,
-    phone TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
-""")
-
-conn.commit()
-conn.close()
-
-print("Database initialized successfully.")
+print("Database created successfully.")
